@@ -22,6 +22,8 @@
 
         @include('layouts.html_component.header')
 
+        @yield('feed')
+
         <main class="container mx-auto px-5 flex flex-grow">
             {{$slot}}
         </main>
