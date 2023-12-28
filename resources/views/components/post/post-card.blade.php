@@ -14,7 +14,7 @@
                 </x-badge>
 
             @endif
-            <p class="text-gray-500 text-sm">{{$post->publish_at}}</p>
+            <p class="text-gray-500 text-sm">{{$post->publish_at->diffForHumans()}}</p>
         </div>
         <a wire:navigate href="{{route('posts.show', $post->slug)}}" class="text-xl font-bold text-gray-900">{{$post->title}}</a>
     </div>
