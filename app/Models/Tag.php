@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'text-color',
+        'bg-color'
+    ];
 }

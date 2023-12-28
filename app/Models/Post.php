@@ -11,6 +11,16 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'image',
+        'title',
+        'slug',
+        'content',
+        'publish_at',
+        'featured'
+    ];
+
     protected $casts = [
         'publish_at' => 'datetime',
     ];
@@ -20,9 +30,14 @@ class Post extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,);
+    }
+
     public function getExcerpt()
     {
-        return Str::limit(strip_tags($this->content),150);
+        return Str::limit(strip_tags($this->content), 150);
     }
 
     public function scopePublished($query)
@@ -32,6 +47,6 @@ class Post extends Model
 
     public function scopeFeatured($query)
     {
-        $query->where('featured',true);
+        $query->where('featured', true);
     }
 }
