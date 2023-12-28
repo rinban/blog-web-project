@@ -36,12 +36,6 @@ class PostResource extends Resource
                 Section::make('Main Content')->schema(
                     [
                     TextInput::make('title')->required()
-                        // ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
-                        //     if($operation ==='edit'){
-                        //         return;
-                        //     }
-                        //     $set('slug',Str::slug($state));
-                        // })
                         ->minLength(1)
                         ->maxLength(200),
                     TextInput::make('slug')->required()

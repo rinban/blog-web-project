@@ -20,7 +20,6 @@
         @forelse ($this->comments as $comment)
         <div class="comment [&:not(:last-child)]:border-b border-gray-100 py-5">
             <div class="user-meta flex mb-4 text-sm items-center">
-                <img class="w-7 h-7 rounded-full mr-3" src="" alt="mn">
                 <x-posts.author :author="$comment->user"/>              
                 <span class="text-gray-500">.{{$comment->created_at->diffforhumans()}}</span>
             </div>
