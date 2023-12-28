@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -19,6 +20,9 @@ class PostList extends Component
     #[Url()]
     public $search = '';
 
+    #[Url()]
+    public $tag = '';
+
     public function setSort($sort){
         $this->sort = ($sort === 'desc')? 'desc' : 'asc';
         $this->resetPage();
@@ -33,6 +37,9 @@ class PostList extends Component
     public function posts(){
         return Post::published()
             ->orderBy('publish_at',$this->sort)
+            ->when(Tag::where('slug',$this->tag)->first(), function($query){
+                $query->withTag($this->tag);
+            })
             ->where('title','like',"%{$this->search}%")
             ->paginate(5);
     }

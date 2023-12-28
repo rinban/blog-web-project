@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -45,8 +46,22 @@ class Post extends Model
         $query->where('publish_at', '<=', Carbon::now());
     }
 
+    public function scopeWithTag($query, string $tag)
+    {
+        $query->whereHas('tags', function ($query) use ($tag){
+            $query->where('slug', $tag);
+        });
+    }
+
     public function scopeFeatured($query)
     {
         $query->where('featured', true);
+    }
+
+    public function getThumbnailUrl()
+    {
+        $isUrl = str_contains($this->image, 'http');
+
+        return ($isUrl) ? $this->image : Storage ::url($this->image);
     }
 }

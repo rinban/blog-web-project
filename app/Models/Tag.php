@@ -12,7 +12,11 @@ class Tag extends Model
     protected $fillable = [
         'title',
         'slug',
-        'text-color',
-        'bg-color'
+        'text_color',
+        'bg_color'
     ];
+
+    public function posts(){
+        return $this->belongsToMany(Post::class);
+    }
 }
